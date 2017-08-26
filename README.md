@@ -7,16 +7,13 @@ Monitoring Add-On for libzbxpgsql v1.1 to monitor PostgreSQL Streaming Replicati
 1. Import the template file "postgresql\_streaming\_template.xml" into Zabbix via the UI
 1. Copy the `libzbxpgsql.conf` file into the `/etc/zabbix` directory on your master and slave DB servers
 1. Execute the SQL script `replication_pump_func.sql` on each *master* DB cluster against the same database as defined in your {$PG\_DB} macro in Zabbix (the `postgres` database by default)
-
-  ```
-  psql -f replication_pump_func.sql -U postgres -d postgres
-  ```
-  If you will be using a DB user other than `postgres` to connect to the DB from the Zabbix agent, you will need to grant execute on the function to that user:
-  ```
-  psql -c 'GRANT EXECUTE ON FUNCTION replication_pump() TO your_zabbix_user;' -U postgres postgres
-  ```
-
-
+    ```
+    psql -f replication_pump_func.sql -U postgres -d postgres
+    ```
+1. If you will be using a DB user other than `postgres` to connect to the DB from the Zabbix agent, you will need to grant execute on the function to that user:
+    ```
+    psql -c 'GRANT EXECUTE ON FUNCTION replication_pump() TO your_zabbix_user;' -U postgres postgres
+    ```
 1. Link the `Template App PostgreSQL Streaming` template to your master and each of your slave DB hosts via the Zabbix UI
 1. Restart the zabbix-agent on your DB servers
 
