@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>3.2</version>
-    <date>2017-03-03T18:06:57Z</date>
+    <version>3.0</version>
+    <date>2017-11-05T02:08:40Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -177,19 +177,13 @@ If you have a system that is busy 24x7 then this is not necessary.</description>
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{Template App PostgreSQL Streaming:pg.query.integer[{$PG_CONN},{$PG_DB},repllagbytes,{#PGSLAVEIP}].last()}&gt;{$PG_ALRT_SLAVE_LAG_BYTES}</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
                             <name>PostgreSQL streaming replication lag bytes high on slave {#PGSLAVE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
                             <description/>
                             <type>0</type>
-                            <manual_close>0</manual_close>
                             <dependencies/>
-                            <tags/>
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes>
@@ -357,11 +351,7 @@ select pg_is_xlog_replay_paused(); -- true if paused, false if not paused</descr
                     <trigger_prototypes>
                         <trigger_prototype>
                             <expression>{Template App PostgreSQL Streaming:pg.query.integer[{$PG_CONN},{$PG_DB},{#PGSLVLAG}].last()}&gt;{$PG_ALRT_SLAVE_LAG_SECS}</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
                             <name>PostgreSQL streaming replication is behind on slave {HOST.NAME1}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -373,17 +363,11 @@ select case when pg_is_in_recovery() = TRUE &#13;
                    else 0::int &#13;
                  end;</description>
                             <type>0</type>
-                            <manual_close>0</manual_close>
                             <dependencies/>
-                            <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template App PostgreSQL Streaming:pg.query.integer[{$PG_CONN},{$PG_DB},{#PGSLVPAUSED}].last()}=1</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
                             <name>PostgreSQL streaming replication is paused on slave {HOST.NAME1}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
@@ -394,9 +378,7 @@ select pg_is_xlog_replay_paused();&#13;
 &#13;
 It can be re-enabled by an administrator by executing &quot;select pg_xlog_replay_resume();&quot; on the slave.</description>
                             <type>0</type>
-                            <manual_close>0</manual_close>
                             <dependencies/>
-                            <tags/>
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes>
@@ -436,7 +418,6 @@ It can be re-enabled by an administrator by executing &quot;select pg_xlog_repla
                     <host_prototypes/>
                 </discovery_rule>
             </discovery_rules>
-            <httptests/>
             <macros>
                 <macro>
                     <macro>{$PG_ALRT_SLAVE_LAG_BYTES}</macro>
